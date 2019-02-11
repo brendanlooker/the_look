@@ -32,6 +32,16 @@ view: orders {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: id_user_id {
+    type: string
+    sql: concat(${id},'-',${user_id}) ;;
+  }
+
+  measure: first_order_lag {
+    type: number
+    sql: datediff(min(${created_date}),${users.created_at_date}) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
