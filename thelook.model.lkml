@@ -4,7 +4,23 @@ include: "*.view.lkml"                       # include all views in this project
 
 
 
+access_grant: can_view_orders_explore {
+  allowed_values: ["USA"]
+  user_attribute: country
+}
+
 explore: order_items {
+
+#   sql_always_where: {% if _user_attributes['country'] == 'USA' %} ${products.brand} = "{{ _user_attributes['brand'] }}"
+#   {% else %} 1 = 1 {% endif %};;
+
+  access_filter: {
+    field: users.country
+    user_attribute: country
+  }
+
+
+#   required_access_grants: [can_view_orders_explore]
 
   join: orders {
     type: left_outer
