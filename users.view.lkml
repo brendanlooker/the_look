@@ -73,12 +73,6 @@ view: users {
     style: integer
   }
 
-  measure: total_orders {
-    type: number
-    sql: count(${order_items.id}) ;;
-  }
-
-
 
 #   measure: average_number_of_orders{
 #     type: average

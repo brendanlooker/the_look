@@ -64,22 +64,6 @@ view: inventory_items {
       value_format_name: usd
     }
 
-    measure: total_cost_by_gender_female {
-      type: count
-      filters: {
-        field:users.gender
-        value: "f"
-      }
-    }
-
-  measure: total_cost_by_gender_male {
-    type: count
-    filters: {
-      field:users.gender
-      value: "m"
-    }
-  }
-
     set: detail {
       fields: [id, product_id, created_at_time, sold_at_time, cost]
     }
