@@ -37,7 +37,16 @@ view: orders {
     drill_fields: [detail*]
   }
 
-  # ----- Sets of fields for drilling ------
+  dimension: id_user_id {
+    type: string
+    sql: concat(${id},'-',${user_id}) ;;
+  }
+
+  measure: first_order_lag {
+    type: number
+    sql: datediff(min(${created_date}),${users.created_at_date}) ;;
+  }
+
   set: detail {
     fields: [
       id,
@@ -47,5 +56,6 @@ view: orders {
       hello_world.count,
       order_items.count
     ]
-  }
+    }
+
 }

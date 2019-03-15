@@ -7,10 +7,6 @@ view: inventory_items {
     sql: ${TABLE}.id ;;
   }
 
-  dimension: cost {
-    type: number
-    sql: ${TABLE}.cost ;;
-  }
 
   dimension_group: created {
     type: time
@@ -46,8 +42,45 @@ view: inventory_items {
     sql: ${TABLE}.sold_at ;;
   }
 
-  measure: count {
+    measure: count {
+      type: count
+      drill_fields: [detail*]
+    }
+
+    dimension_group: created_at {
+      type: time
+      sql: ${TABLE}.created_at ;;
+      drill_fields: [detail*]
+    }
+
+    dimension_group: sold_at {
+      type: time
+      sql: ${TABLE}.sold_at ;;
+    }
+
+    dimension: cost {
+      type: number
+      sql: ${TABLE}.cost ;;
+      value_format_name: usd
+    }
+
+    measure: total_cost_by_gender_female {
+      type: count
+      filters: {
+        field:users.gender
+        value: "f"
+      }
+    }
+
+  measure: total_cost_by_gender_male {
     type: count
-    drill_fields: [id, products.item_name, products.id, order_items.count]
+    filters: {
+      field:users.gender
+      value: "m"
+    }
   }
-}
+
+    set: detail {
+      fields: [id, product_id, created_at_time, sold_at_time, cost]
+    }
+  }
