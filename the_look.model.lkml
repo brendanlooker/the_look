@@ -8,6 +8,13 @@ datagroup: the_look_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: brendans_datagroup {
+  sql_trigger: select currnet_date ;;
+  max_cache_age: "1 hour"
+}
+
+explore: users_fact {}
+
 persist_with: the_look_default_datagroup
 
 explore: events {

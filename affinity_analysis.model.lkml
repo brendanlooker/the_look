@@ -23,6 +23,8 @@ view: order_product {
   }
 }
 
+
+
 view: total_order_product {
   derived_table: {
     sql: SELECT p.item_name as product

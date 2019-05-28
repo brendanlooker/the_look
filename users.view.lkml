@@ -9,6 +9,28 @@ view: users {
 
     }
 
+
+  parameter: timeframe_picker {
+    label: "Date Granularity"
+    type: string
+    allowed_value: { value: "Date" }
+    allowed_value: { value: "Week" }
+    allowed_value: { value: "Month" }
+    default_value: "Date"
+  }
+
+  dimension: dynamic_timeframe {
+    label_from_parameter: timeframe_picker
+    type: string
+    sql:
+    CASE
+    WHEN {% parameter timeframe_picker %} = 'Date' THEN ${created_at_date}
+    WHEN {% parameter timeframe_picker %} = 'Week' THEN ${created_at_week}
+    WHEN {% parameter timeframe_picker %} = 'Month' THEN ${created_at_month}
+    END ;;
+    html: {{ rendered_value | date: "%m-%Y" }} ;;
+  }
+
     dimension: id {
       primary_key: yes
       type: number
@@ -19,6 +41,11 @@ view: users {
       type: string
       sql: ${TABLE}.email ;;
     }
+
+  dimension: gmail {
+    type: string
+    sql: case when REGEXP_LIKE(${email}, 'gmail') = 1 then 'GMAIL' else NULL END ;;
+  }
 
     dimension: first_name {
       type: string

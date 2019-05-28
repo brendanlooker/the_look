@@ -58,4 +58,29 @@ view: orders {
     ]
     }
 
+
+
+
+filter: period_length {
+  type: date
+  default_value: "90 days"
+}
+
+dimension: num_days {
+  # hidden: yes
+  type: string
+  sql: datediff({% date_end period_length %},{% date_start period_length %}) ;;
+}
+
+dimension: period_comparison {
+  # hidden: yes
+  allow_fill: no
+  type: string
+  case: {
+    when: {sql: datediff(now(),${created_date}) < ${num_days};; label: "Current period"}
+    when: {sql: datediff(now(),${created_date}) < (${num_days} + ${num_days}) ;; label: "Prior period"}
+    else: "Out of date period range"
+  }
+}
+
 }

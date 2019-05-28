@@ -1,7 +1,6 @@
 view: order_items {
   sql_table_name: demo_db.order_items ;;
 
-
   measure: count_order_items {
     description: "Count of Order Items"
     type: count

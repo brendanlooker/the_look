@@ -8,18 +8,24 @@ access_grant: can_view_orders_explore {
   user_attribute: country
 }
 
+explore: users_fact {}
+explore: products_extended {}
+
 explore: order_items {
 
 #   sql_always_where: {% if _user_attributes['country'] == 'USA' %} ${products.brand} = "{{ _user_attributes['brand'] }}"
 #   {% else %} 1 = 1 {% endif %};;
 
-  access_filter: {
-    field: users.country
-    user_attribute: country
-  }
+  # access_filter: {
+  #   field: users.country
+  #   user_attribute: country
+  # }
+
+  # sql_always_where: {% condition _user_attributes['country'] %} ${users.country} {% endcondition %};;
+  sql_always_where: ${users.country} in ({{ _user_attributes['country'] }});;
 
 
-#   required_access_grants: [can_view_orders_explore]
+  # required_access_grants: [can_view_orders_explore]
 
   join: orders {
     type: left_outer
@@ -55,6 +61,8 @@ explore: order_items {
   label: "Orders All"
 
 }
+
+explore: products {}
 
 
 ##########################
