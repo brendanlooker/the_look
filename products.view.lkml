@@ -27,6 +27,10 @@ view: products {
     dimension: brand {
       type: string
       sql: ${TABLE}.brand ;;
+      link: {
+        url: "http://www.google.com"
+
+      }
     }
 
     dimension: retail_price {
