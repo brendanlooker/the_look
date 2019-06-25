@@ -28,9 +28,16 @@ view: products {
       type: string
       sql: ${TABLE}.brand ;;
       link: {
-        url: "http://www.google.com"
-
+        label: "Google {{ value }}"
+        url: "http://www.google.com/search?q={{ value }}"
+        icon_url: "http://google.com/favicon.ico"
       }
+      link: {
+        label: "Facebook {{ value }}"
+        url: "http://www.google.com/search?q={{ value }}"
+        icon_url: "http://google.com/favicon.ico"
+      }
+
     }
 
     dimension: retail_price {
