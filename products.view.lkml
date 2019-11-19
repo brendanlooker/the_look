@@ -32,6 +32,7 @@ view: products {
     dimension: brand {
       type: string
       sql: ${TABLE}.brand ;;
+      html: <a href="http://www.google.com/search?q={{ value }}">{{ value }}</a> ;;
       link: {
         label: "Google {{ value }}"
         url: "http://www.google.com/search?q={{ value }}"
@@ -46,7 +47,9 @@ view: products {
 
     dimension: brand_url {
       type: string
-      sql:"http://www.google.com/search?q="{{ brand._value }}  ;;
+      sql:"http://www.google.com/";;
+      html: <a href="http://www.google.com/search?q={{ brand._value }}">http://www.google.com/search?q={{ brand._value }}</a> ;;
+
 
 
 
