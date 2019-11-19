@@ -19,6 +19,11 @@ view: products {
       sql: ${TABLE}.category ;;
     }
 
+    dimension: count_something {
+      type: number
+      sql: select count(${id}) from  demo_db.products;;
+    }
+
     dimension: item_name {
       type: string
       sql: ${TABLE}.item_name ;;
@@ -37,6 +42,13 @@ view: products {
         url: "http://www.google.com/search?q={{ value }}"
         icon_url: "http://google.com/favicon.ico"
       }
+    }
+
+    dimension: brand_url {
+      type: string
+      sql:"http://www.google.com/search?q="{{ brand._value }}  ;;
+
+
 
     }
 

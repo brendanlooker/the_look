@@ -8,7 +8,11 @@ access_grant: can_view_orders_explore {
   user_attribute: country
 }
 
-explore: users_fact {}
+explore: users_aroo{
+  from: users
+  sql_always_where: {% if _user_attributes['city'] ==  %} 1=0 {% else %} ${city} = ({{ _user_attributes['city'] }}) {% endif %};;
+
+}
 explore: products_extended {}
 
 explore: order_items {
@@ -69,59 +73,3 @@ explore: products {}
 
 
 explore: user_first_order {}
-
-# explore: orders {
-#   join: users {
-#     type: left_outer
-#     sql_on: ${orders.user_id}=${users.id} ;;
-#     relationship: many_to_one
-#   }
-#   fields: [ALL_FIELDS*,-users.email,-users.first_name]
-# }
-#
-# explore: users {
-#   persist_with: users_datagroup
-#   always_filter: {
-#     filters: {
-#       field: last_name
-#       value: "Sims"
-#       }
-#     }
-#   sql_always_where: ${state}<>'Indiana' ;;
-#
-#   }
-#
-# datagroup: users_datagroup {
-#   sql_trigger: select count(*) from dem0_db.users ;;
-#   max_cache_age: "24 hours"
-# }
-
-##########################
-
-# explore: bla {
-#   from: order_items
-#   join: orders {
-#     type: left_outer
-#     relationship: many_to_one
-#     sql_on:${bla.order_id}=${orders.id} ;;
-#     }
-#   join: orders2 {
-#     from: orders
-#     type: inner
-#     relationship: one_to_one
-#     sql_on: ${bla.order_id}=${orders2.id};;
-#   }
-# }
-
-
-# explore: orders {}
-#
-# explore: order_fact {
-#   group_label: "E Commerce"
-#   label: "Orders Fact"
-# }
-#
-# datagroup: order_fact_datagroup {
-#   max_cache_age: "4 hours"
-#   sql_trigger: SELECT date(now()) FROM ${TABLE}  ;;
-# }
