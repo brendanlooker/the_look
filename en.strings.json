@@ -1,5 +1,7 @@
 {
  "group_localized":"Created Date",
  "date_localized":"Date",
- "month_localized":"Month"
+ "month_localized":"Month",
+ "week_localized":"Week",
+ "year_localized":"Year"
 }

@@ -1,5 +1,8 @@
+include: "extended_date.view.lkml"
 view: users {
   sql_table_name: demo_db.users ;;
+
+  extends: [extended_date]
 
 
     measure: user_count {
@@ -32,21 +35,30 @@ view: users {
   }
 
 
-  dimension: created_date {
-    group_label: "group_localized"
-    # label: "group_localized_time_localized"
-    group_item_label: "date_localized"
-    type: date_time
-    sql: ${created_at_date} ;;
-  }
+  # dimension: created_date {
+  #   group_label: "group_localized"
+  #   label: "group_localized_date_localized"
+  #   group_item_label: "date_localized"
+  #   type: date_time
+  #   sql: ${created_at_date} ;;
+  # }
 
-  dimension: created_month {
-    group_label: "group_localized"
-    # label: "group_localized_time_localized"
-    group_item_label: "month_localized"
-    type: date_time
-    sql: ${created_at_month} ;;
-  }
+  # dimension: created_month {
+  #   group_label: "group_localized"
+  #   label: "group_localized_month_localized"
+  #   group_item_label: "month_localized"
+  #   type: date_time
+  #   sql: ${created_at_month} ;;
+  # }
+
+  # dimension: created_year {
+  #   group_label: "group_localized"
+  #   label: "group_localized_year_localized"
+  #   group_item_label: "year_localized"
+  #   type: date_time
+  #   sql: ${created_at_year} ;;
+  # }
+
 # dimension: my_group_date {
 #   group_label: "group_localized"
 #   label: "group_localized_date_localized"
@@ -86,6 +98,7 @@ view: users {
     }
 
     dimension_group: created_at {
+      # hidden: yes
       type: time
       sql: ${TABLE}.created_at ;;
     }
