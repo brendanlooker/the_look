@@ -31,6 +31,29 @@ view: users {
     html: {{ rendered_value | date: "%m-%Y" }} ;;
   }
 
+
+  dimension: created_date {
+    group_label: "group_localized"
+    # label: "group_localized_time_localized"
+    group_item_label: "date_localized"
+    type: date_time
+    sql: ${created_at_date} ;;
+  }
+
+  dimension: created_month {
+    group_label: "group_localized"
+    # label: "group_localized_time_localized"
+    group_item_label: "month_localized"
+    type: date_time
+    sql: ${created_at_month} ;;
+  }
+# dimension: my_group_date {
+#   group_label: "group_localized"
+#   label: "group_localized_date_localized"
+#   group_item_label: "date_localized"
+#   type: date_date
+# }```
+
     dimension: id {
       primary_key: yes
       type: number
